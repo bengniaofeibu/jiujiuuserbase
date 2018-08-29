@@ -1,6 +1,7 @@
 package com.jiujiu.service.impl;
 
 import com.jiujiu.Listener.UserListener;
+import com.jiujiu.entity.UserInfo;
 import com.jiujiu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
