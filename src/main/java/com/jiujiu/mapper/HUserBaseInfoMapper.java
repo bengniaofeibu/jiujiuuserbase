@@ -1,9 +1,11 @@
 package com.jiujiu.mapper;
 
 import com.jiujiu.model.HUserBaseInfo;
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface HUserBaseInfoMapper {
     int deleteByPrimaryKey(String id);
 
