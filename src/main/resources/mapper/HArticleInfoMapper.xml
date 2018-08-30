@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiujiu.mapper.HArticleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jiujiu.model.HArticleInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="cat_id" jdbcType="CHAR" property="catId" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="h5_url" jdbcType="VARCHAR" property="h5Url" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="top" jdbcType="INTEGER" property="top" />
+    <result column="views" jdbcType="BIGINT" property="views" />
+    <result column="share" jdbcType="BIGINT" property="share" />
+    <result column="discuss" jdbcType="BIGINT" property="discuss" />
+    <result column="audit_status" jdbcType="INTEGER" property="auditStatus" />
+    <result column="current_time" jdbcType="TIMESTAMP" property="currentTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, author, content_id, cat_id, image, h5_url, desc, sort, top, views, share, 
+    discuss, audit_status, current_time, status, del_flag, create_by, create_date, update_by, 
+    update_date, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from h_article_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from h_article_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jiujiu.model.HArticleInfo">
+    insert into h_article_info (id, title, author, 
+      content_id, cat_id, image, 
+      h5_url, desc, sort, 
+      top, views, share, discuss, 
+      audit_status, current_time, status, 
+      del_flag, create_by, create_date, 
+      update_by, update_date, remarks
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{contentId,jdbcType=BIGINT}, #{catId,jdbcType=CHAR}, #{image,jdbcType=VARCHAR}, 
+      #{h5Url,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{top,jdbcType=INTEGER}, #{views,jdbcType=BIGINT}, #{share,jdbcType=BIGINT}, #{discuss,jdbcType=BIGINT}, 
+      #{auditStatus,jdbcType=INTEGER}, #{currentTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{delFlag,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiujiu.model.HArticleInfo">
+    insert into h_article_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="catId != null">
+        cat_id,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="h5Url != null">
+        h5_url,
+      </if>
+      <if test="desc != null">
+        desc,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="top != null">
+        top,
+      </if>
+      <if test="views != null">
+        views,
+      </if>
+      <if test="share != null">
+        share,
+      </if>
+      <if test="discuss != null">
+        discuss,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="currentTime != null">
+        current_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="catId != null">
+        #{catId,jdbcType=CHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="h5Url != null">
+        #{h5Url,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="top != null">
+        #{top,jdbcType=INTEGER},
+      </if>
+      <if test="views != null">
+        #{views,jdbcType=BIGINT},
+      </if>
+      <if test="share != null">
+        #{share,jdbcType=BIGINT},
+      </if>
+      <if test="discuss != null">
+        #{discuss,jdbcType=BIGINT},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="currentTime != null">
+        #{currentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiujiu.model.HArticleInfo">
+    update h_article_info
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="contentId != null">
+        content_id = #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="catId != null">
+        cat_id = #{catId,jdbcType=CHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="h5Url != null">
+        h5_url = #{h5Url,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="top != null">
+        top = #{top,jdbcType=INTEGER},
+      </if>
+      <if test="views != null">
+        views = #{views,jdbcType=BIGINT},
+      </if>
+      <if test="share != null">
+        share = #{share,jdbcType=BIGINT},
+      </if>
+      <if test="discuss != null">
+        discuss = #{discuss,jdbcType=BIGINT},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="currentTime != null">
+        current_time = #{currentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiujiu.model.HArticleInfo">
+    update h_article_info
+    set title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      content_id = #{contentId,jdbcType=BIGINT},
+      cat_id = #{catId,jdbcType=CHAR},
+      image = #{image,jdbcType=VARCHAR},
+      h5_url = #{h5Url,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      top = #{top,jdbcType=INTEGER},
+      views = #{views,jdbcType=BIGINT},
+      share = #{share,jdbcType=BIGINT},
+      discuss = #{discuss,jdbcType=BIGINT},
+      audit_status = #{auditStatus,jdbcType=INTEGER},
+      current_time = #{currentTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
