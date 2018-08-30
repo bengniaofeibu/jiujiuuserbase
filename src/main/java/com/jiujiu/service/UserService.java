@@ -1,8 +1,11 @@
 package com.jiujiu.service;
 
-import com.jiujiu.entity.UserInfo;
+
+import com.jiujiu.entity.request.UserInfoReq;
+import com.jiujiuwisdom.utils.AppletResult;
 
 public interface UserService {
 
-    void addUser(UserInfo userInfo);
+   AppletResult getHomePageNutritionAndExerciseInfo(UserInfoReq userInfoReq);
+
 }

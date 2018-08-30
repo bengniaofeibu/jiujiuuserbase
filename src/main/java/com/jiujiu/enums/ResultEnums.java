@@ -1,4 +1,4 @@
-package enums;
+package com.jiujiu.enums;
 
 
 import com.jiujiuwisdom.base.BaseEnum;

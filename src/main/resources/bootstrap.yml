@@ -1,23 +1,18 @@
 server:
-  port: 8082
+  port: 9091
 
 
 spring:
   freemarker:
     prefer-file-system-access: false
   application:
-       name: jjgroupclass
+       name: jjusernutrition
   cloud:
     config:
       label: master
       profile: dev
-      uri: http://192.168.0.236:8081
+      uri: http://106.15.47.133:8191
       name: application
-
-eureka:
-  client:
-    service-url:
-       defaultZone: http://106.15.47.133:10000/eureka/
 
   http:
     encoding:
@@ -28,7 +23,17 @@ eureka:
   aop:
       proxy-target-class: true
   jmx:
-    default-domain: demo2
+    default-domain: jjusernutrition
+
+logging:
+    level:
+       com.example: DEBUG
+    config: classpath:logback/logback-logstash.xml
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  config-location: classpath:mybatis/mybatis.xml
 
 # spring boot 监控
 management:

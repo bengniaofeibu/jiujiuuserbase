@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiujiu.mapper.HUserBaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jiujiu.model.HUserBaseInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="custom_id" jdbcType="VARCHAR" property="customId" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="birth" jdbcType="DATE" property="birth" />
+    <result column="work_type" jdbcType="VARCHAR" property="workType" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, custom_id, age, weight, height, birth, work_type, gender, status, del_flag, create_by, 
+    create_date, update_by, update_date, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from h_user_base_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from h_user_base_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jiujiu.model.HUserBaseInfo">
+    insert into h_user_base_info (id, custom_id, age, 
+      weight, height, birth, 
+      work_type, gender, status, 
+      del_flag, create_by, create_date, 
+      update_by, update_date, remarks
+      )
+    values (#{id,jdbcType=VARCHAR}, #{customId,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{weight,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{birth,jdbcType=DATE}, 
+      #{workType,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{delFlag,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiujiu.model.HUserBaseInfo">
+    insert into h_user_base_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="customId != null">
+        custom_id,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="birth != null">
+        birth,
+      </if>
+      <if test="workType != null">
+        work_type,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="customId != null">
+        #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=DATE},
+      </if>
+      <if test="workType != null">
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiujiu.model.HUserBaseInfo">
+    update h_user_base_info
+    <set>
+      <if test="customId != null">
+        custom_id = #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=DATE},
+      </if>
+      <if test="workType != null">
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiujiu.model.HUserBaseInfo">
+    update h_user_base_info
+    set custom_id = #{customId,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      birth = #{birth,jdbcType=DATE},
+      work_type = #{workType,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

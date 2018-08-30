@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiujiu.mapper.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.jiujiu.model.UserInfo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="account_status" jdbcType="INTEGER" property="accountStatus"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="app_version" jdbcType="VARCHAR" property="appVersion"/>
+        <result column="certificate_negative" jdbcType="VARCHAR" property="certificateNegative"/>
+        <result column="certificate_positive" jdbcType="VARCHAR" property="certificatePositive"/>
+        <result column="change_battery_status" jdbcType="INTEGER" property="changeBatteryStatus"/>
+        <result column="city_no" jdbcType="VARCHAR" property="cityNo"/>
+        <result column="credit_score" jdbcType="INTEGER" property="creditScore"/>
+        <result column="deposit" jdbcType="DECIMAL" property="deposit"/>
+        <result column="guester_state" jdbcType="INTEGER" property="guesterState"/>
+        <result column="id_cardnum" jdbcType="VARCHAR" property="idCardnum"/>
+        <result column="integral" jdbcType="INTEGER" property="integral"/>
+        <result column="login_state" jdbcType="INTEGER" property="loginState"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="m_borrow_bicycle" jdbcType="INTEGER" property="mBorrowBicycle"/>
+        <result column="m_borrow_bicycle_date" jdbcType="TIMESTAMP" property="mBorrowBicycleDate"/>
+        <result column="m_phone_system_version" jdbcType="VARCHAR" property="mPhoneSystemVersion"/>
+        <result column="nationality" jdbcType="VARCHAR" property="nationality"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="open_date" jdbcType="TIMESTAMP" property="openDate"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="picurl" jdbcType="VARCHAR" property="picurl"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="status_change_time" jdbcType="TIMESTAMP" property="statusChangeTime"/>
+        <result column="user_level" jdbcType="INTEGER" property="userLevel"/>
+        <result column="validate_date" jdbcType="TIMESTAMP" property="validateDate"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="del_flag" jdbcType="VARCHAR" property="delFlag"/>
+        <result column="balance" jdbcType="DECIMAL" property="balance"/>
+        <result column="balance_free" jdbcType="DECIMAL" property="balanceFree"/>
+        <result column="month_card_time" jdbcType="TIMESTAMP" property="monthCardTime"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="lucky_money" jdbcType="DECIMAL" property="luckyMoney"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="alipay_account" jdbcType="VARCHAR" property="alipayAccount"/>
+        <result column="phone_province" jdbcType="VARCHAR" property="phoneProvince"/>
+        <result column="phone_city" jdbcType="VARCHAR" property="phoneCity"/>
+        <result column="channel" jdbcType="VARCHAR" property="channel"/>
+        <result column="register_city" jdbcType="VARCHAR" property="registerCity"/>
+        <result column="imei" jdbcType="VARCHAR" property="imei"/>
+        <result column="idfa" jdbcType="VARCHAR" property="idfa"/>
+        <result column="user_source" jdbcType="INTEGER" property="userSource"/>
+        <result column="mac" jdbcType="VARCHAR" property="mac"/>
+
+        <!-- 用户基础数据 -->
+        <collection property="userBaseInfo" ofType="com.jiujiu.model.HUserBaseInfo">
+            <result column="age" property="age"/>
+            <result column="weight" property="weight" />
+            <result column="work_type" property="workType"/>
+            <result column="gender" property="gender"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, account_status, add_time, app_version, certificate_negative, certificate_positive, 
+    change_battery_status, city_no, credit_score, deposit, guester_state, id_cardnum, 
+    integral, login_state, login_time, m_borrow_bicycle, m_borrow_bicycle_date, m_phone_system_version, 
+    nationality, nickname, open_date, phone, picurl, real_name, status_change_time, user_level, 
+    validate_date, create_by, create_date, update_by, update_date, remarks, del_flag, 
+    balance, balance_free, month_card_time, gender, lucky_money, age, alipay_account, 
+    phone_province, phone_city, channel, register_city, imei, idfa, user_source, mac
+  </sql>
+
+  <select id="selectUserBaseInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+   SELECT
+   userbaseinfo.age,userbaseinfo.weight,userbaseinfo.work_type,userbaseinfo.gender
+   FROM t_user_info userinfo LEFT JOIN h_user_base_info userbaseinfo
+   ON userinfo.id = userbaseinfo.id
+   WHERE userinfo.id = #{id,jdbcType=VARCHAR}  AND  userbaseinfo.`status` = 1
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.jiujiu.model.UserInfo">
+    insert into t_user_info (id, account_status, add_time, 
+      app_version, certificate_negative, certificate_positive, 
+      change_battery_status, city_no, credit_score, 
+      deposit, guester_state, id_cardnum, 
+      integral, login_state, login_time, 
+      m_borrow_bicycle, m_borrow_bicycle_date, m_phone_system_version, 
+      nationality, nickname, open_date, 
+      phone, picurl, real_name, 
+      status_change_time, user_level, validate_date, 
+      create_by, create_date, update_by, 
+      update_date, remarks, del_flag, 
+      balance, balance_free, month_card_time, 
+      gender, lucky_money, age, 
+      alipay_account, phone_province, phone_city, 
+      channel, register_city, imei, 
+      idfa, user_source, mac
+      )
+    values (#{id,jdbcType=VARCHAR}, #{accountStatus,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{appVersion,jdbcType=VARCHAR}, #{certificateNegative,jdbcType=VARCHAR}, #{certificatePositive,jdbcType=VARCHAR}, 
+      #{changeBatteryStatus,jdbcType=INTEGER}, #{cityNo,jdbcType=VARCHAR}, #{creditScore,jdbcType=INTEGER}, 
+      #{deposit,jdbcType=DECIMAL}, #{guesterState,jdbcType=INTEGER}, #{idCardnum,jdbcType=VARCHAR}, 
+      #{integral,jdbcType=INTEGER}, #{loginState,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{mBorrowBicycle,jdbcType=INTEGER}, #{mBorrowBicycleDate,jdbcType=TIMESTAMP}, #{mPhoneSystemVersion,jdbcType=VARCHAR}, 
+      #{nationality,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{openDate,jdbcType=TIMESTAMP}, 
+      #{phone,jdbcType=VARCHAR}, #{picurl,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{statusChangeTime,jdbcType=TIMESTAMP}, #{userLevel,jdbcType=INTEGER}, #{validateDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=DECIMAL}, #{balanceFree,jdbcType=DECIMAL}, #{monthCardTime,jdbcType=TIMESTAMP}, 
+      #{gender,jdbcType=INTEGER}, #{luckyMoney,jdbcType=DECIMAL}, #{age,jdbcType=INTEGER}, 
+      #{alipayAccount,jdbcType=VARCHAR}, #{phoneProvince,jdbcType=VARCHAR}, #{phoneCity,jdbcType=VARCHAR}, 
+      #{channel,jdbcType=VARCHAR}, #{registerCity,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
+      #{idfa,jdbcType=VARCHAR}, #{userSource,jdbcType=INTEGER}, #{mac,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jiujiu.model.UserInfo">
+        insert into t_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="accountStatus != null">
+                account_status,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="appVersion != null">
+                app_version,
+            </if>
+            <if test="certificateNegative != null">
+                certificate_negative,
+            </if>
+            <if test="certificatePositive != null">
+                certificate_positive,
+            </if>
+            <if test="changeBatteryStatus != null">
+                change_battery_status,
+            </if>
+            <if test="cityNo != null">
+                city_no,
+            </if>
+            <if test="creditScore != null">
+                credit_score,
+            </if>
+            <if test="deposit != null">
+                deposit,
+            </if>
+            <if test="guesterState != null">
+                guester_state,
+            </if>
+            <if test="idCardnum != null">
+                id_cardnum,
+            </if>
+            <if test="integral != null">
+                integral,
+            </if>
+            <if test="loginState != null">
+                login_state,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="mBorrowBicycle != null">
+                m_borrow_bicycle,
+            </if>
+            <if test="mBorrowBicycleDate != null">
+                m_borrow_bicycle_date,
+            </if>
+            <if test="mPhoneSystemVersion != null">
+                m_phone_system_version,
+            </if>
+            <if test="nationality != null">
+                nationality,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="openDate != null">
+                open_date,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="picurl != null">
+                picurl,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="statusChangeTime != null">
+                status_change_time,
+            </if>
+            <if test="userLevel != null">
+                user_level,
+            </if>
+            <if test="validateDate != null">
+                validate_date,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="balance != null">
+                balance,
+            </if>
+            <if test="balanceFree != null">
+                balance_free,
+            </if>
+            <if test="monthCardTime != null">
+                month_card_time,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="luckyMoney != null">
+                lucky_money,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="alipayAccount != null">
+                alipay_account,
+            </if>
+            <if test="phoneProvince != null">
+                phone_province,
+            </if>
+            <if test="phoneCity != null">
+                phone_city,
+            </if>
+            <if test="channel != null">
+                channel,
+            </if>
+            <if test="registerCity != null">
+                register_city,
+            </if>
+            <if test="imei != null">
+                imei,
+            </if>
+            <if test="idfa != null">
+                idfa,
+            </if>
+            <if test="userSource != null">
+                user_source,
+            </if>
+            <if test="mac != null">
+                mac,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="accountStatus != null">
+                #{accountStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="appVersion != null">
+                #{appVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateNegative != null">
+                #{certificateNegative,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatePositive != null">
+                #{certificatePositive,jdbcType=VARCHAR},
+            </if>
+            <if test="changeBatteryStatus != null">
+                #{changeBatteryStatus,jdbcType=INTEGER},
+            </if>
+            <if test="cityNo != null">
+                #{cityNo,jdbcType=VARCHAR},
+            </if>
+            <if test="creditScore != null">
+                #{creditScore,jdbcType=INTEGER},
+            </if>
+            <if test="deposit != null">
+                #{deposit,jdbcType=DECIMAL},
+            </if>
+            <if test="guesterState != null">
+                #{guesterState,jdbcType=INTEGER},
+            </if>
+            <if test="idCardnum != null">
+                #{idCardnum,jdbcType=VARCHAR},
+            </if>
+            <if test="integral != null">
+                #{integral,jdbcType=INTEGER},
+            </if>
+            <if test="loginState != null">
+                #{loginState,jdbcType=INTEGER},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mBorrowBicycle != null">
+                #{mBorrowBicycle,jdbcType=INTEGER},
+            </if>
+            <if test="mBorrowBicycleDate != null">
+                #{mBorrowBicycleDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mPhoneSystemVersion != null">
+                #{mPhoneSystemVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="nationality != null">
+                #{nationality,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="openDate != null">
+                #{openDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="picurl != null">
+                #{picurl,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="statusChangeTime != null">
+                #{statusChangeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userLevel != null">
+                #{userLevel,jdbcType=INTEGER},
+            </if>
+            <if test="validateDate != null">
+                #{validateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="balanceFree != null">
+                #{balanceFree,jdbcType=DECIMAL},
+            </if>
+            <if test="monthCardTime != null">
+                #{monthCardTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="luckyMoney != null">
+                #{luckyMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="alipayAccount != null">
+                #{alipayAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneProvince != null">
+                #{phoneProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneCity != null">
+                #{phoneCity,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="registerCity != null">
+                #{registerCity,jdbcType=VARCHAR},
+            </if>
+            <if test="imei != null">
+                #{imei,jdbcType=VARCHAR},
+            </if>
+            <if test="idfa != null">
+                #{idfa,jdbcType=VARCHAR},
+            </if>
+            <if test="userSource != null">
+                #{userSource,jdbcType=INTEGER},
+            </if>
+            <if test="mac != null">
+                #{mac,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jiujiu.model.UserInfo">
+        update t_user_info
+        <set>
+            <if test="accountStatus != null">
+                account_status = #{accountStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="appVersion != null">
+                app_version = #{appVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="certificateNegative != null">
+                certificate_negative = #{certificateNegative,jdbcType=VARCHAR},
+            </if>
+            <if test="certificatePositive != null">
+                certificate_positive = #{certificatePositive,jdbcType=VARCHAR},
+            </if>
+            <if test="changeBatteryStatus != null">
+                change_battery_status = #{changeBatteryStatus,jdbcType=INTEGER},
+            </if>
+            <if test="cityNo != null">
+                city_no = #{cityNo,jdbcType=VARCHAR},
+            </if>
+            <if test="creditScore != null">
+                credit_score = #{creditScore,jdbcType=INTEGER},
+            </if>
+            <if test="deposit != null">
+                deposit = #{deposit,jdbcType=DECIMAL},
+            </if>
+            <if test="guesterState != null">
+                guester_state = #{guesterState,jdbcType=INTEGER},
+            </if>
+            <if test="idCardnum != null">
+                id_cardnum = #{idCardnum,jdbcType=VARCHAR},
+            </if>
+            <if test="integral != null">
+                integral = #{integral,jdbcType=INTEGER},
+            </if>
+            <if test="loginState != null">
+                login_state = #{loginState,jdbcType=INTEGER},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mBorrowBicycle != null">
+                m_borrow_bicycle = #{mBorrowBicycle,jdbcType=INTEGER},
+            </if>
+            <if test="mBorrowBicycleDate != null">
+                m_borrow_bicycle_date = #{mBorrowBicycleDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mPhoneSystemVersion != null">
+                m_phone_system_version = #{mPhoneSystemVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="nationality != null">
+                nationality = #{nationality,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="openDate != null">
+                open_date = #{openDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="picurl != null">
+                picurl = #{picurl,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="statusChangeTime != null">
+                status_change_time = #{statusChangeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userLevel != null">
+                user_level = #{userLevel,jdbcType=INTEGER},
+            </if>
+            <if test="validateDate != null">
+                validate_date = #{validateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="balanceFree != null">
+                balance_free = #{balanceFree,jdbcType=DECIMAL},
+            </if>
+            <if test="monthCardTime != null">
+                month_card_time = #{monthCardTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="luckyMoney != null">
+                lucky_money = #{luckyMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="alipayAccount != null">
+                alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneProvince != null">
+                phone_province = #{phoneProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneCity != null">
+                phone_city = #{phoneCity,jdbcType=VARCHAR},
+            </if>
+            <if test="channel != null">
+                channel = #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="registerCity != null">
+                register_city = #{registerCity,jdbcType=VARCHAR},
+            </if>
+            <if test="imei != null">
+                imei = #{imei,jdbcType=VARCHAR},
+            </if>
+            <if test="idfa != null">
+                idfa = #{idfa,jdbcType=VARCHAR},
+            </if>
+            <if test="userSource != null">
+                user_source = #{userSource,jdbcType=INTEGER},
+            </if>
+            <if test="mac != null">
+                mac = #{mac,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jiujiu.model.UserInfo">
+    update t_user_info
+    set account_status = #{accountStatus,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      app_version = #{appVersion,jdbcType=VARCHAR},
+      certificate_negative = #{certificateNegative,jdbcType=VARCHAR},
+      certificate_positive = #{certificatePositive,jdbcType=VARCHAR},
+      change_battery_status = #{changeBatteryStatus,jdbcType=INTEGER},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      credit_score = #{creditScore,jdbcType=INTEGER},
+      deposit = #{deposit,jdbcType=DECIMAL},
+      guester_state = #{guesterState,jdbcType=INTEGER},
+      id_cardnum = #{idCardnum,jdbcType=VARCHAR},
+      integral = #{integral,jdbcType=INTEGER},
+      login_state = #{loginState,jdbcType=INTEGER},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      m_borrow_bicycle = #{mBorrowBicycle,jdbcType=INTEGER},
+      m_borrow_bicycle_date = #{mBorrowBicycleDate,jdbcType=TIMESTAMP},
+      m_phone_system_version = #{mPhoneSystemVersion,jdbcType=VARCHAR},
+      nationality = #{nationality,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      open_date = #{openDate,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR},
+      picurl = #{picurl,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      status_change_time = #{statusChangeTime,jdbcType=TIMESTAMP},
+      user_level = #{userLevel,jdbcType=INTEGER},
+      validate_date = #{validateDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      balance_free = #{balanceFree,jdbcType=DECIMAL},
+      month_card_time = #{monthCardTime,jdbcType=TIMESTAMP},
+      gender = #{gender,jdbcType=INTEGER},
+      lucky_money = #{luckyMoney,jdbcType=DECIMAL},
+      age = #{age,jdbcType=INTEGER},
+      alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+      phone_province = #{phoneProvince,jdbcType=VARCHAR},
+      phone_city = #{phoneCity,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=VARCHAR},
+      register_city = #{registerCity,jdbcType=VARCHAR},
+      imei = #{imei,jdbcType=VARCHAR},
+      idfa = #{idfa,jdbcType=VARCHAR},
+      user_source = #{userSource,jdbcType=INTEGER},
+      mac = #{mac,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,6 +1,6 @@
 package com.jiujiu.Listener;
 
-import com.jiujiu.entity.UserInfo;
+import com.jiujiu.model.UserInfo;
 import lombok.Getter;
 import lombok.Setter;
 
