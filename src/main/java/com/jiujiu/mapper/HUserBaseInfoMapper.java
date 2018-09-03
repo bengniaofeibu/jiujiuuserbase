@@ -7,15 +7,10 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface HUserBaseInfoMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(HUserBaseInfo record);
-
-    int insertSelective(HUserBaseInfo record);
+    int insertUserBaseInfo(HUserBaseInfo record);
 
     HUserBaseInfo selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(HUserBaseInfo record);
-
-    int updateByPrimaryKey(HUserBaseInfo record);
 }

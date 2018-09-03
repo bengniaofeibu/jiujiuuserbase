@@ -414,7 +414,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.jiujiu.model.UserInfo">
+    <update id="updateUserInfoByUserId" parameterType="com.jiujiu.model.UserInfo">
         update t_user_info
         <set>
             <if test="accountStatus != null">

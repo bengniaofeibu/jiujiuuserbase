@@ -46,7 +46,8 @@
       #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jiujiu.model.HUserBaseInfo">
+
+  <insert id="insertUserBaseInfo" parameterType="com.jiujiu.model.HUserBaseInfo">
     insert into h_user_base_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

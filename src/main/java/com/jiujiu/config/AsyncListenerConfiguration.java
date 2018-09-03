@@ -1,4 +1,4 @@
-package com.jiujiu.Listener;
+package com.jiujiu.config;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;

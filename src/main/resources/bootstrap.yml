@@ -30,11 +30,6 @@ logging:
        com.example: DEBUG
     config: classpath:logback/logback-logstash.xml
 
-
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  config-location: classpath:mybatis/mybatis.xml
-
 # spring boot 监控
 management:
   endpoints:
