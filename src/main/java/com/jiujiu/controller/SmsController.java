@@ -27,7 +27,7 @@ public class SmsController extends BaseController{
             @ApiResponse(code = 10003, message = "请输入正确的手机号"),
     })
     @PostMapping(value = "/sendSms")
-    public AppletResult<UserRegisterLoginRes> userRegisterLogin(HttpServletRequest request,
+    public AppletResult userRegisterLogin(HttpServletRequest request,
                                                                 @RequestBody @ApiParam(name = "发送短信请求对象",required = true)SendSmsReq sendSmsReq){
         sendSmsReq = (SendSmsReq) headUtil.getAllReqHead(request,sendSmsReq);
         return smsService.sendSMSVerificationCode(sendSmsReq);

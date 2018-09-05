@@ -6,11 +6,11 @@ spring:
   freemarker:
     prefer-file-system-access: false
   application:
-       name: jjusernutrition
+       name: jjuserbase
   cloud:
     config:
       label: master
-      profile: dev
+      profile: local
       uri: http://106.15.47.133:8191
       name: application
 
@@ -23,7 +23,7 @@ spring:
   aop:
       proxy-target-class: true
   jmx:
-    default-domain: jjusernutrition
+    default-domain: jjuserbase
 
 logging:
     level:
