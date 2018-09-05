@@ -53,10 +53,14 @@
 
         <!-- 用户基础数据 -->
         <collection property="userBaseInfo" ofType="com.jiujiu.model.HUserBaseInfo">
+            <result column="custom_id" property="customId"/>
             <result column="age" property="age"/>
+            <result column="birth" property="birth"/>
+            <result column="height" property="height" />
             <result column="weight" property="weight" />
             <result column="work_type" property="workType"/>
             <result column="gender" property="gender"/>
+            <result column="status" property="status"/>
         </collection>
     </resultMap>
 
@@ -70,12 +74,17 @@
     phone_province, phone_city, channel, register_city, imei, idfa, user_source, mac
   </sql>
 
+    <select id="selectUserIdByPhone" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT id FROM t_user_info WHERE phone = #{phone,jdbcType=VARCHAR}
+    </select>
+
   <select id="selectUserBaseInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
    SELECT
-   userbaseinfo.age,userbaseinfo.weight,userbaseinfo.work_type,userbaseinfo.gender
+   userinfo.phone,userinfo.nickname,userinfo.picurl,CASE WHEN userbaseinfo.status is NULL THEN 0 ELSE userbaseinfo.status END AS status ,
+   userbaseinfo.custom_id,userbaseinfo.age,userbaseinfo.birth,userbaseinfo.height,userbaseinfo.weight,userbaseinfo.work_type,userbaseinfo.gender
    FROM t_user_info userinfo LEFT JOIN h_user_base_info userbaseinfo
    ON userinfo.id = userbaseinfo.id
-   WHERE userinfo.id = #{id,jdbcType=VARCHAR}  AND  userbaseinfo.`status` = 1
+   WHERE userinfo.phone = #{phone,jdbcType=VARCHAR} OR userinfo.id = #{id,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -83,54 +92,14 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insert" parameterType="com.jiujiu.model.UserInfo">
-    insert into t_user_info (id, account_status, add_time, 
-      app_version, certificate_negative, certificate_positive, 
-      change_battery_status, city_no, credit_score, 
-      deposit, guester_state, id_cardnum, 
-      integral, login_state, login_time, 
-      m_borrow_bicycle, m_borrow_bicycle_date, m_phone_system_version, 
-      nationality, nickname, open_date, 
-      phone, picurl, real_name, 
-      status_change_time, user_level, validate_date, 
-      create_by, create_date, update_by, 
-      update_date, remarks, del_flag, 
-      balance, balance_free, month_card_time, 
-      gender, lucky_money, age, 
-      alipay_account, phone_province, phone_city, 
-      channel, register_city, imei, 
-      idfa, user_source, mac
-      )
-    values (#{id,jdbcType=VARCHAR}, #{accountStatus,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{appVersion,jdbcType=VARCHAR}, #{certificateNegative,jdbcType=VARCHAR}, #{certificatePositive,jdbcType=VARCHAR}, 
-      #{changeBatteryStatus,jdbcType=INTEGER}, #{cityNo,jdbcType=VARCHAR}, #{creditScore,jdbcType=INTEGER}, 
-      #{deposit,jdbcType=DECIMAL}, #{guesterState,jdbcType=INTEGER}, #{idCardnum,jdbcType=VARCHAR}, 
-      #{integral,jdbcType=INTEGER}, #{loginState,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
-      #{mBorrowBicycle,jdbcType=INTEGER}, #{mBorrowBicycleDate,jdbcType=TIMESTAMP}, #{mPhoneSystemVersion,jdbcType=VARCHAR}, 
-      #{nationality,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{openDate,jdbcType=TIMESTAMP}, 
-      #{phone,jdbcType=VARCHAR}, #{picurl,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
-      #{statusChangeTime,jdbcType=TIMESTAMP}, #{userLevel,jdbcType=INTEGER}, #{validateDate,jdbcType=TIMESTAMP}, 
-      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
-      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, 
-      #{balance,jdbcType=DECIMAL}, #{balanceFree,jdbcType=DECIMAL}, #{monthCardTime,jdbcType=TIMESTAMP}, 
-      #{gender,jdbcType=INTEGER}, #{luckyMoney,jdbcType=DECIMAL}, #{age,jdbcType=INTEGER}, 
-      #{alipayAccount,jdbcType=VARCHAR}, #{phoneProvince,jdbcType=VARCHAR}, #{phoneCity,jdbcType=VARCHAR}, 
-      #{channel,jdbcType=VARCHAR}, #{registerCity,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
-      #{idfa,jdbcType=VARCHAR}, #{userSource,jdbcType=INTEGER}, #{mac,jdbcType=VARCHAR}
-      )
-  </insert>
-    <insert id="insertSelective" parameterType="com.jiujiu.model.UserInfo">
+    <insert id="insertNewUser" parameterType="com.jiujiu.model.UserInfo">
         insert into t_user_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
             </if>
-            <if test="accountStatus != null">
-                account_status,
-            </if>
-            <if test="addTime != null">
-                add_time,
-            </if>
+             account_status,
+             add_time,
             <if test="appVersion != null">
                 app_version,
             </if>
@@ -218,9 +187,7 @@
             <if test="remarks != null">
                 remarks,
             </if>
-            <if test="delFlag != null">
                 del_flag,
-            </if>
             <if test="balance != null">
                 balance,
             </if>
@@ -271,12 +238,8 @@
             <if test="id != null">
                 #{id,jdbcType=VARCHAR},
             </if>
-            <if test="accountStatus != null">
-                #{accountStatus,jdbcType=INTEGER},
-            </if>
-            <if test="addTime != null">
-                #{addTime,jdbcType=TIMESTAMP},
-            </if>
+              0,
+              NOW(),
             <if test="appVersion != null">
                 #{appVersion,jdbcType=VARCHAR},
             </if>
@@ -364,9 +327,7 @@
             <if test="remarks != null">
                 #{remarks,jdbcType=VARCHAR},
             </if>
-            <if test="delFlag != null">
-                #{delFlag,jdbcType=VARCHAR},
-            </if>
+                0,
             <if test="balance != null">
                 #{balance,jdbcType=DECIMAL},
             </if>
@@ -414,7 +375,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateUserInfoByUserId" parameterType="com.jiujiu.model.UserInfo">
+    <update id="updateUserInfoByUserIdOrPhone" parameterType="com.jiujiu.model.UserInfo">
         update t_user_info
         <set>
             <if test="accountStatus != null">
@@ -559,57 +520,14 @@
                 mac = #{mac,jdbcType=VARCHAR},
             </if>
         </set>
-        where id = #{id,jdbcType=VARCHAR}
+        where
+        <choose>
+            <when test="id != null">
+                id = #{id,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                phone = #{phone,jdbcType=VARCHAR}
+            </otherwise>
+        </choose>
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.jiujiu.model.UserInfo">
-    update t_user_info
-    set account_status = #{accountStatus,jdbcType=INTEGER},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      app_version = #{appVersion,jdbcType=VARCHAR},
-      certificate_negative = #{certificateNegative,jdbcType=VARCHAR},
-      certificate_positive = #{certificatePositive,jdbcType=VARCHAR},
-      change_battery_status = #{changeBatteryStatus,jdbcType=INTEGER},
-      city_no = #{cityNo,jdbcType=VARCHAR},
-      credit_score = #{creditScore,jdbcType=INTEGER},
-      deposit = #{deposit,jdbcType=DECIMAL},
-      guester_state = #{guesterState,jdbcType=INTEGER},
-      id_cardnum = #{idCardnum,jdbcType=VARCHAR},
-      integral = #{integral,jdbcType=INTEGER},
-      login_state = #{loginState,jdbcType=INTEGER},
-      login_time = #{loginTime,jdbcType=TIMESTAMP},
-      m_borrow_bicycle = #{mBorrowBicycle,jdbcType=INTEGER},
-      m_borrow_bicycle_date = #{mBorrowBicycleDate,jdbcType=TIMESTAMP},
-      m_phone_system_version = #{mPhoneSystemVersion,jdbcType=VARCHAR},
-      nationality = #{nationality,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      open_date = #{openDate,jdbcType=TIMESTAMP},
-      phone = #{phone,jdbcType=VARCHAR},
-      picurl = #{picurl,jdbcType=VARCHAR},
-      real_name = #{realName,jdbcType=VARCHAR},
-      status_change_time = #{statusChangeTime,jdbcType=TIMESTAMP},
-      user_level = #{userLevel,jdbcType=INTEGER},
-      validate_date = #{validateDate,jdbcType=TIMESTAMP},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      del_flag = #{delFlag,jdbcType=VARCHAR},
-      balance = #{balance,jdbcType=DECIMAL},
-      balance_free = #{balanceFree,jdbcType=DECIMAL},
-      month_card_time = #{monthCardTime,jdbcType=TIMESTAMP},
-      gender = #{gender,jdbcType=INTEGER},
-      lucky_money = #{luckyMoney,jdbcType=DECIMAL},
-      age = #{age,jdbcType=INTEGER},
-      alipay_account = #{alipayAccount,jdbcType=VARCHAR},
-      phone_province = #{phoneProvince,jdbcType=VARCHAR},
-      phone_city = #{phoneCity,jdbcType=VARCHAR},
-      channel = #{channel,jdbcType=VARCHAR},
-      register_city = #{registerCity,jdbcType=VARCHAR},
-      imei = #{imei,jdbcType=VARCHAR},
-      idfa = #{idfa,jdbcType=VARCHAR},
-      user_source = #{userSource,jdbcType=INTEGER},
-      mac = #{mac,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
 </mapper>

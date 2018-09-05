@@ -112,8 +112,17 @@ public class UserInfo extends BaseModel{
 
     private HUserBaseInfo userBaseInfo;
 
-    public UserInfo(String id,String nickname,String picurl,Integer gender) {
+    public UserInfo(){
+
+    }
+
+    public UserInfo(String id){
         this.id = id;
+    }
+
+
+    public UserInfo(String id,String nickname,String picurl,Integer gender) {
+        this(id);
         this.nickname = nickname;
         this.picurl = picurl;
         this.gender = gender;

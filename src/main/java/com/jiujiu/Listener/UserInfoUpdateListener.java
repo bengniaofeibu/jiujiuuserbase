@@ -5,9 +5,7 @@ import com.jiujiu.entity.request.UserBaseInfoReq;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-public class UserListener extends BaseListener<UserBaseInfoReq> {
+public class UserInfoUpdateListener extends BaseListener<UserBaseInfoReq> {
 
 
     /**
@@ -16,7 +14,7 @@ public class UserListener extends BaseListener<UserBaseInfoReq> {
      * @param source   the object on which the event initially occurred (never {@code null})
      * @param userBaseInfoReq
      */
-    public UserListener(Object source, UserBaseInfoReq userBaseInfoReq) {
+    public UserInfoUpdateListener(Object source, UserBaseInfoReq userBaseInfoReq) {
         super(source, userBaseInfoReq);
     }
 }

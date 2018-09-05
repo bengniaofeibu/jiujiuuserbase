@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Setter
 @Getter
-@ApiModel(description = "完善用户基本信息请求参数")
+@ApiModel(description = "完善用户基本信息请求对象")
 public class UserBaseInfoReq extends BaseEntity {
 
     private static final long serialVersionUID = 5895699582957353403L;

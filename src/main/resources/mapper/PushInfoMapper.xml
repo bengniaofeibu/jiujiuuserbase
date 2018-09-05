@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiujiu.mapper.PushInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jiujiu.model.PushInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="DeviceToken" jdbcType="VARCHAR" property="devicetoken" />
+    <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="userId" jdbcType="VARCHAR" property="userid" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="VARCHAR" property="delFlag" />
+    <result column="brand_tag" jdbcType="VARCHAR" property="brandTag" />
+    <result column="brand_push_id" jdbcType="VARCHAR" property="brandPushId" />
+    <result column="baidu_city_tag" jdbcType="VARCHAR" property="baiduCityTag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, DeviceToken, addtime, userId, create_by, create_date, update_by, update_date, 
+    remarks, del_flag, brand_tag, brand_push_id, baidu_city_tag
+  </sql>
+  <select id="selectDeviceTokenByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+    select 
+    DeviceToken
+    from t_push_info
+    where userId = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_push_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jiujiu.model.PushInfo">
+    insert into t_push_info (id, DeviceToken, addtime, 
+      userId, create_by, create_date, 
+      update_by, update_date, remarks, 
+      del_flag, brand_tag, brand_push_id, 
+      baidu_city_tag)
+    values (#{id,jdbcType=VARCHAR}, #{devicetoken,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=VARCHAR}, #{brandTag,jdbcType=VARCHAR}, #{brandPushId,jdbcType=VARCHAR}, 
+      #{baiduCityTag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertPushInfo" parameterType="com.jiujiu.model.PushInfo">
+    insert into t_push_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="devicetoken != null">
+        DeviceToken,
+      </if>
+        addtime,
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+        del_flag,
+      <if test="brandTag != null">
+        brand_tag,
+      </if>
+      <if test="brandPushId != null">
+        brand_push_id,
+      </if>
+      <if test="baiduCityTag != null">
+        baidu_city_tag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetoken != null">
+        #{devicetoken,jdbcType=VARCHAR},
+      </if>
+         NOW(),
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+         1,
+      <if test="brandTag != null">
+        #{brandTag,jdbcType=VARCHAR},
+      </if>
+      <if test="brandPushId != null">
+        #{brandPushId,jdbcType=VARCHAR},
+      </if>
+      <if test="baiduCityTag != null">
+        #{baiduCityTag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateDevicetokenByUserId" parameterType="com.jiujiu.model.PushInfo">
+    update t_push_info
+    <set>
+      <if test="devicetoken != null">
+        DeviceToken = #{devicetoken,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="brandTag != null">
+        brand_tag = #{brandTag,jdbcType=VARCHAR},
+      </if>
+      <if test="brandPushId != null">
+        brand_push_id = #{brandPushId,jdbcType=VARCHAR},
+      </if>
+      <if test="baiduCityTag != null">
+        baidu_city_tag = #{baiduCityTag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

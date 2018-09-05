@@ -42,6 +42,9 @@ public class HUserBaseInfo extends BaseModel{
 
     private String remarks;
 
+    public HUserBaseInfo() {
+    }
+
     public HUserBaseInfo(String id) {
        this.id = id;
     }

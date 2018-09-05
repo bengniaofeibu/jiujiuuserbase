@@ -7,6 +7,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+/**
+ *  异步更新用户信息
+ */
 @Component
 public class AsyncUpdateUserInfo {
 
@@ -15,11 +18,11 @@ public class AsyncUpdateUserInfo {
 
   @Async
   @EventListener
-  public void updateUserInfo(UserListener userListener){
+  public void updateUserInfo(UserInfoUpdateListener userListener){
 
     UserInfo userInfo  = new UserInfo(userListener.getT().getUserId(),userListener.getT().getUserNickname(),
             userListener.getT().getUserHeadImage(),userListener.getT().getUserGender());
-    userInfoMapper.updateUserInfoByUserId(userInfo);
+    userInfoMapper.updateUserInfoByUserIdOrPhone(userInfo);
   }
 }
 
