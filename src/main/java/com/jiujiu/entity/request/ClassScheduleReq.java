@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @ApiModel(description = "上课日程请求对象")
-public class ClassSch   duleReq extends BaseEntity {
+public class ClassScheduleReq extends BaseEntity {
 
     private static final long serialVersionUID = 5895699582957353403L;
 
