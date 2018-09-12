@@ -82,15 +82,20 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
         int dataStatus = 0; //用户是否完善资料状态
 
+        //用户id
+        String userId;
+
         //判断用户是已经注册过了
         if ( userBaseInfo  == null ){
 
             userBaseInfo = new UserInfo();
 
+            userId = UUIDUtil.randomUUID();
+
             //新注册
             userBaseInfo.setPhone(userPhone);
             userBaseInfo.setLoginTime(loginTime);
-            userBaseInfo.setId(UUIDUtil.randomUUID());
+            userBaseInfo.setId(userId);
             userBaseInfo.setAppVersion(userRegisterLoginReq.getAppVersion());
             userBaseInfo.setNickname(new StringBuilder("99").append(userPhone.substring(7,userPhone.length())).toString());
             userBaseInfo.setPicurl("");
@@ -98,9 +103,10 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
         } else {
 
+            userId = userInfoMapper.selectUserIdByPhone(userPhone);
+
             //赋值用户是否完善资料状态
             dataStatus = userBaseInfo.getUserBaseInfo().getStatus();
-
 
             //已经注册
             userBaseInfo.setAppVersion(userRegisterLoginReq.getAppVersion());
@@ -111,7 +117,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
         }
 
-        return ResultUtil.success(new UserRegisterLoginRes(dataStatus));
+        return ResultUtil.success(new UserRegisterLoginRes(userId,dataStatus));
     }
 
     /**
