@@ -17,7 +17,7 @@ public class UserInfoRes extends BaseEntity {
     private String headImage;
 
     @ApiModelProperty(value = "用户昵称")
-    private String nickName;
+    private String nickname;
 
     @ApiModelProperty(value = "用户性别")
     private Integer gender;
@@ -42,7 +42,7 @@ public class UserInfoRes extends BaseEntity {
 
     public UserInfoRes(String headImage, String nickName, Integer gender, String phone, String birth, Integer height, Integer weight, String workType,Integer userType) {
         this.headImage = headImage;
-        this.nickName = nickName;
+        this.nickname = nickName;
         this.gender = gender;
         this.phone = phone;
         this.birth = birth;

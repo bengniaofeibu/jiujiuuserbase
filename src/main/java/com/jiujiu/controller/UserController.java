@@ -42,7 +42,6 @@ public class UserController extends BaseController {
                                                                 @RequestBody @ApiParam(name = "用户注册登录请求对象",required = true)UserRegisterLoginReq userRegisterLoginReq){
         userRegisterLoginReq = (UserRegisterLoginReq) headUtil.getAllReqHead(request,userRegisterLoginReq);
         return userService.userRegisterLogin(userRegisterLoginReq);
-
     }
 
     @ApiOperation(value = "完善用户基本信息")
