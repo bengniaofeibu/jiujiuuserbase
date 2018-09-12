@@ -10,9 +10,18 @@ spring:
   cloud:
     config:
       label: master
-      profile: local
+      profile: dev
       uri: http://106.15.47.133:8191
       name: application
+
+  rabbitmq:
+#     host: 47.102.20.188
+     host: 10.31.188.92
+     port: 5672
+     username: admin
+     password: admin
+     publisher-confirms: true
+     publisher-returns: true
 
   http:
     encoding:

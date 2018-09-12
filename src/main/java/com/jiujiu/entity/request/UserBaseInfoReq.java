@@ -5,7 +5,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Setter
@@ -21,10 +26,8 @@ public class UserBaseInfoReq extends BaseEntity {
     @ApiModelProperty(value = "用户昵称")
     private String userNickname;
 
-    @ApiModelProperty(value = "用户年龄")
-    private Integer age;
-
     @ApiModelProperty(value = "用户性别 0女  1男")
+    @Range(min = 0,max = 1,message = "性别参数只能是0或者1")
     private Integer userGender;
 
     @ApiModelProperty(value = "用户生日",example = "1535904000")
@@ -37,5 +40,6 @@ public class UserBaseInfoReq extends BaseEntity {
     private Integer weight;
 
     @ApiModelProperty(value = "用户工作类型")
+    @NotBlank(message = "工作类型不能为空或者字符串")
     private String workType;
 }

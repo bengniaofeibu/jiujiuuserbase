@@ -1,11 +1,12 @@
 package com.jiujiu.util;
 
+
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
 import com.gexin.rp.sdk.base.payload.APNPayload;
 import com.gexin.rp.sdk.http.IGtPush;
-import com.gexin.rp.sdk.base.impl.Target;
 import com.gexin.rp.sdk.template.TransmissionTemplate;
+import com.gexin.rp.sdk.base.impl.Target;
 
 import java.io.IOException;
 

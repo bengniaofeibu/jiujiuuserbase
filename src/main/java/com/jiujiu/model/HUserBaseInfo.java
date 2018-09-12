@@ -49,9 +49,8 @@ public class HUserBaseInfo extends BaseModel{
        this.id = id;
     }
 
-    public HUserBaseInfo(String id,Integer age, Integer weight, Integer height, Date birth, String workType, Integer gender) {
+    public HUserBaseInfo(String id,Integer weight, Integer height, Date birth, String workType, Integer gender) {
         this(id);
-        this.age = age;
         this.weight = weight;
         this.height = height;
         this.birth = birth;

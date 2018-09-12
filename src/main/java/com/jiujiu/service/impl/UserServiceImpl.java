@@ -1,17 +1,19 @@
 package com.jiujiu.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.jiujiu.Listener.UserElsewhereLoginListener;
 import com.jiujiu.base.BaseServiceImpl;
-import com.jiujiu.entity.request.UserRegisterLoginReq;
-import com.jiujiu.entity.response.UserInfoRes;
-import com.jiujiu.entity.response.UserRegisterLoginRes;
+import com.jiujiu.entity.request.*;
+import com.jiujiu.entity.response.*;
+import com.jiujiu.mapper.HProjectCourseMapper;
 import com.jiujiu.mapper.SystemUserMapper;
 import com.jiujiu.Listener.UserInfoUpdateListener;
-import com.jiujiu.entity.request.UserBaseInfoReq;
-import com.jiujiu.entity.request.UserInfoReq;
 import com.jiujiu.enums.ResultEnums;
 import com.jiujiu.mapper.HUserBaseInfoMapper;
 import com.jiujiu.mapper.UserInfoMapper;
+import com.jiujiu.model.ArticleInfo;
+import com.jiujiu.model.HProjectCourse;
 import com.jiujiu.model.HUserBaseInfo;
 import com.jiujiu.model.UserInfo;
 import com.jiujiu.service.UserService;
@@ -23,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class UserServiceImpl extends BaseServiceImpl implements UserService {
@@ -36,6 +38,9 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
     @Autowired
     private SystemUserMapper systemUserMapper;
+
+    @Autowired
+    private HProjectCourseMapper projectCourseMapper;
 
 
     private static final Logger LOGGER  = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -162,7 +167,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
         Date date = new Date(birthStr.length() == 10?userBaseInfoReq.getBirth()*1000:userBaseInfoReq.getBirth());
 
-        HUserBaseInfo userBaseInfo = new HUserBaseInfo(userBaseInfoReq.getUserId(),userBaseInfoReq.getAge(),userBaseInfoReq.getWeight(),
+        HUserBaseInfo userBaseInfo = new HUserBaseInfo(userBaseInfoReq.getUserId(),userBaseInfoReq.getWeight(),
                 userBaseInfoReq.getHeight(), date,userBaseInfoReq.getWorkType(),userBaseInfoReq.getUserGender());
 
         //记录用户完善的资料
@@ -177,5 +182,75 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
         }
 
         return ResultUtil.success(ResultEnums.PERFECT_USER_BASE_INFO_FAIL);
+    }
+
+    /**
+     * 获取上课日程
+     *
+     * @param classScheduleReq
+     * @return
+     */
+    @Override
+    public AppletResult<ClassScheduleResPage> getClassSchedule(ClassScheduleReq classScheduleReq) {
+
+        Page<HProjectCourse> page = PageHelper.startPage(classScheduleReq.getCurrentPage(), 10, false);
+
+        List<HProjectCourse> hProjectCourses = projectCourseMapper.selectCourseInfoByCoachId(classScheduleReq.getUserId());
+
+        if (hProjectCourses == null || hProjectCourses.size() == 0){
+
+            return ResultUtil.success(ResultEnums.CLASS_NOT_FOUND_FAIL);
+        }
+
+        List<ClassScheduleRes> classScheduleList = new LinkedList<>();
+        ClassScheduleRes classScheduleRes;
+        for(HProjectCourse hProjectCourse:hProjectCourses){
+            classScheduleRes = new ClassScheduleRes();
+            classScheduleRes.setCompanyId(hProjectCourse.getCustomId());
+            classScheduleRes.setClassId(hProjectCourse.getCourseBaseId());
+            classScheduleRes.setClassCheckoutCount(hProjectCourse.getCheckoutCount());
+            classScheduleRes.setClassCode("");
+            classScheduleRes.setClassTime(DateUtil.format(hProjectCourse.getClassTime(),DateFormatConstant.TIME_PATTERN));
+            classScheduleRes.setClassName(hProjectCourse.getHCourseBaseInfo().getName());
+            classScheduleRes.setClassCompany(hProjectCourse.getHCustom().getCustomName());
+            classScheduleRes.setClassAddress(hProjectCourse.getHCustom().getCustomAddr());
+            classScheduleList.add(classScheduleRes);
+        }
+
+        //根据上课时间倒序
+        classScheduleList.sort(Comparator.comparing(ClassScheduleRes::getClassTime).reversed());
+
+        ClassScheduleResPage classScheduleResPage = new ClassScheduleResPage();
+        classScheduleResPage.setClassScheduleResList(classScheduleList);
+        classScheduleResPage.setTotalPage(page.getPages());
+        return ResultUtil.success(classScheduleResPage);
+    }
+
+    /**
+     * 获取文章信息
+     *
+     * @param articleInfoReq
+     * @return
+     */
+    @Override
+    public AppletResult<ArticleInfoRes> getArticleInfo(ArticleInfoReq articleInfoReq) {
+
+        ArticleInfo articleInfo = new ArticleInfo();
+        articleInfo.setTitle("我离美人鱼的距离只差一条人鱼线？");
+        articleInfo.setDesc("减肥事业年复一年，何时是个头啊");
+        articleInfo.setAuthor("乌鸦白云");
+        articleInfo.setPublishedTime(DateUtil.format(new Date(),DateFormatConstant.DATE_FMT_9));
+
+        ArticleInfo articleInfo2 = new ArticleInfo();
+        articleInfo2.setTitle("我离美人鱼的距离只差一条人鱼线？");
+        articleInfo2.setDesc("减肥事业年复一年，何时是个头啊");
+        articleInfo2.setAuthor("乌鸦白云");
+        articleInfo2.setPublishedTime(DateUtil.format(new Date(),DateFormatConstant.DATE_FMT_9));
+
+        List<ArticleInfo> articleInfoList = new LinkedList<>();
+        articleInfoList.add(articleInfo);
+        articleInfoList.add(articleInfo2);
+
+        return ResultUtil.success(new ArticleInfoRes(articleInfoList));
     }
 }

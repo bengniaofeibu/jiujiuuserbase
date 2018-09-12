@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiujiu.mapper.HCustomMapper">
+  <resultMap id="BaseResultMap" type="com.jiujiu.model.HCustom">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="custom_name" jdbcType="VARCHAR" property="customName" />
+    <result column="custom_type" jdbcType="BIT" property="customType" />
+    <result column="cooperation_type" jdbcType="BIT" property="cooperationType" />
+    <result column="audit_status" jdbcType="BIT" property="auditStatus" />
+    <result column="identity_card_photo" jdbcType="VARCHAR" property="identityCardPhoto" />
+    <result column="identity_card_photo_re" jdbcType="VARCHAR" property="identityCardPhotoRe" />
+    <result column="business_license_photo" jdbcType="VARCHAR" property="businessLicensePhoto" />
+    <result column="business_license_number" jdbcType="VARCHAR" property="businessLicenseNumber" />
+    <result column="industry_licence_photo" jdbcType="VARCHAR" property="industryLicencePhoto" />
+    <result column="logo_pic" jdbcType="VARCHAR" property="logoPic" />
+    <result column="legal_person" jdbcType="VARCHAR" property="legalPerson" />
+    <result column="identity_card" jdbcType="VARCHAR" property="identityCard" />
+    <result column="custom_no" jdbcType="VARCHAR" property="customNo" />
+    <result column="custom_addr" jdbcType="VARCHAR" property="customAddr" />
+    <result column="undertaking" jdbcType="VARCHAR" property="undertaking" />
+    <result column="custom_abbreviation" jdbcType="VARCHAR" property="customAbbreviation" />
+    <result column="custom_accout" jdbcType="VARCHAR" property="customAccout" />
+    <result column="custom_passwd" jdbcType="VARCHAR" property="customPasswd" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
+    <result column="open_flag" jdbcType="BIT" property="openFlag" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, contact, phone, add_time, custom_name, custom_type, cooperation_type, audit_status, 
+    identity_card_photo, identity_card_photo_re, business_license_photo, business_license_number, 
+    industry_licence_photo, logo_pic, legal_person, identity_card, custom_no, custom_addr, 
+    undertaking, custom_abbreviation, custom_accout, custom_passwd, del_flag, open_flag, 
+    create_date, create_by, update_date, update_by, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from h_custom
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from h_custom
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jiujiu.model.HCustom">
+    insert into h_custom (id, contact, phone, 
+      add_time, custom_name, custom_type, 
+      cooperation_type, audit_status, identity_card_photo, 
+      identity_card_photo_re, business_license_photo, 
+      business_license_number, industry_licence_photo, 
+      logo_pic, legal_person, identity_card, 
+      custom_no, custom_addr, undertaking, 
+      custom_abbreviation, custom_accout, custom_passwd, 
+      del_flag, open_flag, create_date, 
+      create_by, update_date, update_by, 
+      remarks)
+    values (#{id,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{customName,jdbcType=VARCHAR}, #{customType,jdbcType=BIT}, 
+      #{cooperationType,jdbcType=BIT}, #{auditStatus,jdbcType=BIT}, #{identityCardPhoto,jdbcType=VARCHAR}, 
+      #{identityCardPhotoRe,jdbcType=VARCHAR}, #{businessLicensePhoto,jdbcType=VARCHAR}, 
+      #{businessLicenseNumber,jdbcType=VARCHAR}, #{industryLicencePhoto,jdbcType=VARCHAR}, 
+      #{logoPic,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, #{identityCard,jdbcType=VARCHAR}, 
+      #{customNo,jdbcType=VARCHAR}, #{customAddr,jdbcType=VARCHAR}, #{undertaking,jdbcType=VARCHAR}, 
+      #{customAbbreviation,jdbcType=VARCHAR}, #{customAccout,jdbcType=VARCHAR}, #{customPasswd,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=BIT}, #{openFlag,jdbcType=BIT}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiujiu.model.HCustom">
+    insert into h_custom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="customName != null">
+        custom_name,
+      </if>
+      <if test="customType != null">
+        custom_type,
+      </if>
+      <if test="cooperationType != null">
+        cooperation_type,
+      </if>
+      <if test="auditStatus != null">
+        audit_status,
+      </if>
+      <if test="identityCardPhoto != null">
+        identity_card_photo,
+      </if>
+      <if test="identityCardPhotoRe != null">
+        identity_card_photo_re,
+      </if>
+      <if test="businessLicensePhoto != null">
+        business_license_photo,
+      </if>
+      <if test="businessLicenseNumber != null">
+        business_license_number,
+      </if>
+      <if test="industryLicencePhoto != null">
+        industry_licence_photo,
+      </if>
+      <if test="logoPic != null">
+        logo_pic,
+      </if>
+      <if test="legalPerson != null">
+        legal_person,
+      </if>
+      <if test="identityCard != null">
+        identity_card,
+      </if>
+      <if test="customNo != null">
+        custom_no,
+      </if>
+      <if test="customAddr != null">
+        custom_addr,
+      </if>
+      <if test="undertaking != null">
+        undertaking,
+      </if>
+      <if test="customAbbreviation != null">
+        custom_abbreviation,
+      </if>
+      <if test="customAccout != null">
+        custom_accout,
+      </if>
+      <if test="customPasswd != null">
+        custom_passwd,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="openFlag != null">
+        open_flag,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customName != null">
+        #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="customType != null">
+        #{customType,jdbcType=BIT},
+      </if>
+      <if test="cooperationType != null">
+        #{cooperationType,jdbcType=BIT},
+      </if>
+      <if test="auditStatus != null">
+        #{auditStatus,jdbcType=BIT},
+      </if>
+      <if test="identityCardPhoto != null">
+        #{identityCardPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCardPhotoRe != null">
+        #{identityCardPhotoRe,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicensePhoto != null">
+        #{businessLicensePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseNumber != null">
+        #{businessLicenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="industryLicencePhoto != null">
+        #{industryLicencePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPic != null">
+        #{logoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCard != null">
+        #{identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="customNo != null">
+        #{customNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customAddr != null">
+        #{customAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="undertaking != null">
+        #{undertaking,jdbcType=VARCHAR},
+      </if>
+      <if test="customAbbreviation != null">
+        #{customAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="customAccout != null">
+        #{customAccout,jdbcType=VARCHAR},
+      </if>
+      <if test="customPasswd != null">
+        #{customPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="openFlag != null">
+        #{openFlag,jdbcType=BIT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiujiu.model.HCustom">
+    update h_custom
+    <set>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customName != null">
+        custom_name = #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="customType != null">
+        custom_type = #{customType,jdbcType=BIT},
+      </if>
+      <if test="cooperationType != null">
+        cooperation_type = #{cooperationType,jdbcType=BIT},
+      </if>
+      <if test="auditStatus != null">
+        audit_status = #{auditStatus,jdbcType=BIT},
+      </if>
+      <if test="identityCardPhoto != null">
+        identity_card_photo = #{identityCardPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCardPhotoRe != null">
+        identity_card_photo_re = #{identityCardPhotoRe,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicensePhoto != null">
+        business_license_photo = #{businessLicensePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseNumber != null">
+        business_license_number = #{businessLicenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="industryLicencePhoto != null">
+        industry_licence_photo = #{industryLicencePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPic != null">
+        logo_pic = #{logoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCard != null">
+        identity_card = #{identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="customNo != null">
+        custom_no = #{customNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customAddr != null">
+        custom_addr = #{customAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="undertaking != null">
+        undertaking = #{undertaking,jdbcType=VARCHAR},
+      </if>
+      <if test="customAbbreviation != null">
+        custom_abbreviation = #{customAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="customAccout != null">
+        custom_accout = #{customAccout,jdbcType=VARCHAR},
+      </if>
+      <if test="customPasswd != null">
+        custom_passwd = #{customPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="openFlag != null">
+        open_flag = #{openFlag,jdbcType=BIT},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiujiu.model.HCustom">
+    update h_custom
+    set contact = #{contact,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      custom_name = #{customName,jdbcType=VARCHAR},
+      custom_type = #{customType,jdbcType=BIT},
+      cooperation_type = #{cooperationType,jdbcType=BIT},
+      audit_status = #{auditStatus,jdbcType=BIT},
+      identity_card_photo = #{identityCardPhoto,jdbcType=VARCHAR},
+      identity_card_photo_re = #{identityCardPhotoRe,jdbcType=VARCHAR},
+      business_license_photo = #{businessLicensePhoto,jdbcType=VARCHAR},
+      business_license_number = #{businessLicenseNumber,jdbcType=VARCHAR},
+      industry_licence_photo = #{industryLicencePhoto,jdbcType=VARCHAR},
+      logo_pic = #{logoPic,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      identity_card = #{identityCard,jdbcType=VARCHAR},
+      custom_no = #{customNo,jdbcType=VARCHAR},
+      custom_addr = #{customAddr,jdbcType=VARCHAR},
+      undertaking = #{undertaking,jdbcType=VARCHAR},
+      custom_abbreviation = #{customAbbreviation,jdbcType=VARCHAR},
+      custom_accout = #{customAccout,jdbcType=VARCHAR},
+      custom_passwd = #{customPasswd,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=BIT},
+      open_flag = #{openFlag,jdbcType=BIT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

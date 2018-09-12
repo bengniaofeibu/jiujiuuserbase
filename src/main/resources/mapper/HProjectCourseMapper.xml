@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiujiu.mapper.HProjectCourseMapper">
+  <resultMap id="BaseResultMap" type="com.jiujiu.model.HProjectCourse">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="customId" property="customId"/>
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="course_base_id" jdbcType="VARCHAR" property="courseBaseId" />
+    <result column="coach_id" jdbcType="VARCHAR" property="coachId" />
+    <result column="class_time" jdbcType="TIMESTAMP" property="classTime" />
+    <result column="sign_in_count" jdbcType="INTEGER" property="signInCount" />
+    <result column="checkout_count" jdbcType="INTEGER" property="checkoutCount" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+
+    <!-- 课程基础数据 -->
+    <collection property="hCourseBaseInfo" ofType="com.jiujiu.model.HCourseBaseInfo">
+      <result column="name" property="name"/>
+    </collection>
+
+    <!-- 企业基础数据 -->
+    <collection property="hCustom" ofType="com.jiujiu.model.HCustom">
+      <result column="custom_name" property="customName"/>
+      <result column="custom_addr" property="customAddr"/>
+    </collection>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_id, course_base_id, coach_id, class_time, sign_in_count, checkout_count, 
+    del_flag, create_by, create_date, update_by, update_date, remarks
+  </sql>
+
+  <select id="selectCourseInfoByCoachId" parameterType="java.lang.String" resultMap="BaseResultMap">
+   SELECT
+   custom.custom_name,custom.id AS customId,custom.custom_addr,coursebaseinfo.name,projectcourse.course_base_id,projectcourse.class_time,projectcourse.checkout_count
+   FROM h_project_course projectcourse
+   INNER JOIN h_project_info projectInfo INNER JOIN h_custom custom INNER JOIN h_course_base_info coursebaseinfo
+   ON projectcourse.course_base_id = coursebaseinfo.id AND  projectcourse.project_id = projectInfo.id  and projectInfo.custom_id = custom.id
+   WHERE coach_id = 1 = #{coachId,jdbcType=VARCHAR}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from h_project_course
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jiujiu.model.HProjectCourse">
+    insert into h_project_course (id, project_id, course_base_id, 
+      coach_id, class_time, sign_in_count, 
+      checkout_count, del_flag, create_by, 
+      create_date, update_by, update_date, 
+      remarks)
+    values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{courseBaseId,jdbcType=VARCHAR}, 
+      #{coachId,jdbcType=VARCHAR}, #{classTime,jdbcType=TIMESTAMP}, #{signInCount,jdbcType=INTEGER}, 
+      #{checkoutCount,jdbcType=INTEGER}, #{delFlag,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiujiu.model.HProjectCourse">
+    insert into h_project_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="courseBaseId != null">
+        course_base_id,
+      </if>
+      <if test="coachId != null">
+        coach_id,
+      </if>
+      <if test="classTime != null">
+        class_time,
+      </if>
+      <if test="signInCount != null">
+        sign_in_count,
+      </if>
+      <if test="checkoutCount != null">
+        checkout_count,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseBaseId != null">
+        #{courseBaseId,jdbcType=VARCHAR},
+      </if>
+      <if test="coachId != null">
+        #{coachId,jdbcType=VARCHAR},
+      </if>
+      <if test="classTime != null">
+        #{classTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signInCount != null">
+        #{signInCount,jdbcType=INTEGER},
+      </if>
+      <if test="checkoutCount != null">
+        #{checkoutCount,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiujiu.model.HProjectCourse">
+    update h_project_course
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseBaseId != null">
+        course_base_id = #{courseBaseId,jdbcType=VARCHAR},
+      </if>
+      <if test="coachId != null">
+        coach_id = #{coachId,jdbcType=VARCHAR},
+      </if>
+      <if test="classTime != null">
+        class_time = #{classTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signInCount != null">
+        sign_in_count = #{signInCount,jdbcType=INTEGER},
+      </if>
+      <if test="checkoutCount != null">
+        checkout_count = #{checkoutCount,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiujiu.model.HProjectCourse">
+    update h_project_course
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      course_base_id = #{courseBaseId,jdbcType=VARCHAR},
+      coach_id = #{coachId,jdbcType=VARCHAR},
+      class_time = #{classTime,jdbcType=TIMESTAMP},
+      sign_in_count = #{signInCount,jdbcType=INTEGER},
+      checkout_count = #{checkoutCount,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

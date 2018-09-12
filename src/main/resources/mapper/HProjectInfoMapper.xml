@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiujiu.mapper.HProjectInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jiujiu.model.HProjectInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="saler_id" jdbcType="VARCHAR" property="salerId" />
+    <result column="course_count" jdbcType="INTEGER" property="courseCount" />
+    <result column="custom_id" jdbcType="VARCHAR" property="customId" />
+    <result column="open_flag" jdbcType="INTEGER" property="openFlag" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_name, saler_id, course_count, custom_id, open_flag, del_flag, create_by, 
+    create_date, update_by, update_date, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from h_project_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from h_project_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jiujiu.model.HProjectInfo">
+    insert into h_project_info (id, project_name, saler_id, 
+      course_count, custom_id, open_flag, 
+      del_flag, create_by, create_date, 
+      update_by, update_date, remarks
+      )
+    values (#{id,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{salerId,jdbcType=VARCHAR}, 
+      #{courseCount,jdbcType=INTEGER}, #{customId,jdbcType=VARCHAR}, #{openFlag,jdbcType=INTEGER}, 
+      #{delFlag,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiujiu.model.HProjectInfo">
+    insert into h_project_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="salerId != null">
+        saler_id,
+      </if>
+      <if test="courseCount != null">
+        course_count,
+      </if>
+      <if test="customId != null">
+        custom_id,
+      </if>
+      <if test="openFlag != null">
+        open_flag,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerId != null">
+        #{salerId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCount != null">
+        #{courseCount,jdbcType=INTEGER},
+      </if>
+      <if test="customId != null">
+        #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="openFlag != null">
+        #{openFlag,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiujiu.model.HProjectInfo">
+    update h_project_info
+    <set>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerId != null">
+        saler_id = #{salerId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCount != null">
+        course_count = #{courseCount,jdbcType=INTEGER},
+      </if>
+      <if test="customId != null">
+        custom_id = #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="openFlag != null">
+        open_flag = #{openFlag,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiujiu.model.HProjectInfo">
+    update h_project_info
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      saler_id = #{salerId,jdbcType=VARCHAR},
+      course_count = #{courseCount,jdbcType=INTEGER},
+      custom_id = #{customId,jdbcType=VARCHAR},
+      open_flag = #{openFlag,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

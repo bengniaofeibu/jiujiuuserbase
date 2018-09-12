@@ -1,11 +1,8 @@
 package com.jiujiu.controller;
 
 import com.jiujiu.base.BaseController;
-import com.jiujiu.entity.request.UserBaseInfoReq;
-import com.jiujiu.entity.request.UserInfoReq;
-import com.jiujiu.entity.request.UserRegisterLoginReq;
-import com.jiujiu.entity.response.UserInfoRes;
-import com.jiujiu.entity.response.UserRegisterLoginRes;
+import com.jiujiu.entity.request.*;
+import com.jiujiu.entity.response.*;
 import com.jiujiu.service.UserService;
 import com.jiujiuwisdom.utils.AppletResult;
 import io.swagger.annotations.*;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RefreshScope
 @RestController
@@ -68,5 +66,31 @@ public class UserController extends BaseController {
     public AppletResult<UserInfoRes> getUserInfo(HttpServletRequest request){
         UserInfoReq userInfoReq = (UserInfoReq) headUtil.getAllReqHead(request,new UserInfoReq());
         return userService.getUserInfo(userInfoReq);
+    }
+
+
+
+    @ApiOperation(value = "获取上课日程")
+    @ApiResponses({
+            @ApiResponse(code = 500, message = "系统内部错误"),
+            @ApiResponse(code = 10005, message = "暂无上课日程"),
+    })
+    @GetMapping(value = "/getclassschedule")
+    public AppletResult<ClassScheduleResPage> getClassSchedule(HttpServletRequest request,
+                                                               @Valid @ApiParam(name = "上课日程请求对象",required = true) ClassScheduleReq classScheduleReq){
+        classScheduleReq = (ClassScheduleReq) headUtil.getAllReqHead(request,classScheduleReq);
+        return userService.getClassSchedule(classScheduleReq);
+    }
+
+
+    @ApiOperation(value = "获取首页文章")
+    @ApiResponses({
+            @ApiResponse(code = 500, message = "系统内部错误"),
+    })
+    @GetMapping(value = "/getarticleinfo")
+    public AppletResult<ArticleInfoRes> getArticleInfo(HttpServletRequest request,
+                                                       @Valid @ApiParam(name = "首页文章请求对象",required = true) ArticleInfoReq articleInfoReq){
+        articleInfoReq = (ArticleInfoReq) headUtil.getAllReqHead(request,articleInfoReq);
+        return userService.getArticleInfo(articleInfoReq);
     }
 }

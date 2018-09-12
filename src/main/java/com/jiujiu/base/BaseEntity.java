@@ -12,4 +12,5 @@ import java.io.Serializable;
 @Getter
 public abstract class BaseEntity extends ApiHead implements Serializable{
     private static final long serialVersionUID = 5895699582957353403L;
+
 }

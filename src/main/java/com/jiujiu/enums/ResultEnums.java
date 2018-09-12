@@ -19,7 +19,9 @@ public enum ResultEnums implements BaseEnum {
 
     PHONE_FORMAT_FAIL(10003,"请输入正确的手机号"),
 
-    SEND_VERIFICATION_CODE_FAIL(10004,"验证码发送失败");
+    SEND_VERIFICATION_CODE_FAIL(10004,"验证码发送失败"),
+
+    CLASS_NOT_FOUND_FAIL(10005,"暂无上课日程");
 
     private Integer code;
 
