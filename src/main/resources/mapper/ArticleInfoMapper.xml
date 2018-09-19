@@ -33,11 +33,11 @@
     share, discuss, collect, kudos, audit_status, current_time, status, del_flag, create_by, 
     create_date, update_by, update_date, remarks
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectArticleInfo" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from t_article_info
-    where id = #{id,jdbcType=BIGINT}
+    title,info.desc,image,author,update_date,h5_url
+    from t_article_info AS info
+    where status = 3 ORDER BY views desc LIMIT 2
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_article_info

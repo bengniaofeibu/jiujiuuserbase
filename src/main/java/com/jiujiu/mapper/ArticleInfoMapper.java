@@ -1,17 +1,14 @@
 package com.jiujiu.mapper;
 
 import com.jiujiu.model.ArticleInfo;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Component
+@Mapper
 public interface ArticleInfoMapper {
-    int deleteByPrimaryKey(Long id);
 
-    int insert(ArticleInfo record);
-
-    int insertSelective(ArticleInfo record);
-
-    ArticleInfo selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(ArticleInfo record);
-
-    int updateByPrimaryKey(ArticleInfo record);
+    List<ArticleInfo> selectArticleInfo();
 }

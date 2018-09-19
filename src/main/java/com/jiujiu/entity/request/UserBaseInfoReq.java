@@ -30,6 +30,9 @@ public class UserBaseInfoReq extends BaseEntity {
     @Range(min = 0,max = 1,message = "性别参数只能是0或者1")
     private Integer userGender;
 
+    @ApiModelProperty(hidden = true)
+    private Integer age;
+
     @ApiModelProperty(value = "用户生日",example = "1535904000")
     private Long birth;
 
@@ -39,7 +42,15 @@ public class UserBaseInfoReq extends BaseEntity {
     @ApiModelProperty(value = "用户体重")
     private Integer weight;
 
-    @ApiModelProperty(value = "用户工作类型")
+    @ApiModelProperty(value = "用户工作类型",hidden = true)
     @NotBlank(message = "工作类型不能为空或者字符串")
     private String workType;
+
+    @ApiModelProperty(value = "用户工作类型tag")
+    @NotBlank(message = "工作类型tag不能为空或者字符串")
+    private String workTypeTag;
+
+    @ApiModelProperty(value = "操作类型 0 添加 1 更新")
+    @NotBlank(message = "操作类型不能为空或者字符串")
+    private String operateType;
 }

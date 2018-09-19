@@ -29,8 +29,10 @@ public class ArticleInfo extends BaseModel{
 
     private String catId;
 
+    @ApiModelProperty(value = "图片")
     private String image;
 
+    @ApiModelProperty(value = "跳转链接")
     private String h5Url;
 
     @ApiModelProperty(value = "摘要")

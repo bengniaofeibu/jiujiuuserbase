@@ -1,6 +1,7 @@
 package com.jiujiu.model;
 
 import com.jiujiu.base.BaseModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -112,6 +113,25 @@ public class UserInfo extends BaseModel{
 
     private HUserBaseInfo userBaseInfo;
 
+    private Integer weight;
+
+    private Integer height;
+
+    private String userBirth;
+
+    private String workType;
+
+    private String workTypeTag;
+
+    @ApiModelProperty(value = "绑定微信用户状态 0 否  1 是")
+    private Integer IsAuthWx;
+
+    @ApiModelProperty(value = "用户类型 0 普通用户 1 教练 2 企业用户")
+    private Integer userType;
+
+    @ApiModelProperty(value = "完善资料状态 0 否 1 是")
+    private Integer dataStatus;
+
     public UserInfo(){
 
     }
@@ -121,8 +141,9 @@ public class UserInfo extends BaseModel{
     }
 
 
-    public UserInfo(String id,String nickname,String picurl,Integer gender) {
+    public UserInfo(String id,Integer age,String nickname,String picurl,Integer gender) {
         this(id);
+        this.age = age;
         this.nickname = nickname;
         this.picurl = picurl;
         this.gender = gender;

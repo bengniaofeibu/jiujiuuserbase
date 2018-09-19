@@ -62,8 +62,8 @@ public class UserController extends BaseController {
             @ApiResponse(code = 10000, message = "用户信息获取失败"),
     })
     @GetMapping(value = "/getuserinfo")
-    public AppletResult<UserInfoRes> getUserInfo(HttpServletRequest request){
-        UserInfoReq userInfoReq = (UserInfoReq) headUtil.getAllReqHead(request,new UserInfoReq());
+    public AppletResult<UserInfoRes> getUserInfo(HttpServletRequest request,UserInfoReq userInfoReq){
+        userInfoReq = (UserInfoReq) headUtil.getAllReqHead(request,userInfoReq == null?new UserInfoReq():userInfoReq);
         return userService.getUserInfo(userInfoReq);
     }
 

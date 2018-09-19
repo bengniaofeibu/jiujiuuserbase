@@ -1,6 +1,8 @@
 package com.jiujiu.entity.response;
 
 import com.jiujiu.base.BaseEntity;
+import com.jiujiu.model.UserInfo;
+import com.jiujiu.model.UserReport;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,42 +15,23 @@ public class UserInfoRes extends BaseEntity {
 
     private static final long serialVersionUID = 5895699582957353403L;
 
-    @ApiModelProperty(value = "用户头像")
-    private String headImage;
+    private UserInfo user;
 
-    @ApiModelProperty(value = "用户昵称")
-    private String nickname;
+    private UserReport userReport;
 
-    @ApiModelProperty(value = "用户性别")
-    private Integer gender;
+    @ApiModelProperty(value = "用户状态")
+    private Integer lockCode;
 
-    @ApiModelProperty(value = "用户手机号")
-    private String phone;
+    @ApiModelProperty(value = "用户状态描述")
+    private String lockMessage;
 
-    @ApiModelProperty(value = "用户生日")
-    private String birth;
+    @ApiModelProperty(value = "乐享标识")
+    private Integer leXiangNotice;
 
-    @ApiModelProperty(value = "用户身高")
-    private Integer height;
 
-    @ApiModelProperty(value = "用户体重")
-    private Integer weight;
 
-    @ApiModelProperty(value = "用户工作类型")
-    private String workType;
-
-    @ApiModelProperty(value = "用户类型")
-    private Integer userType;
-
-    public UserInfoRes(String headImage, String nickName, Integer gender, String phone, String birth, Integer height, Integer weight, String workType,Integer userType) {
-        this.headImage = headImage;
-        this.nickname = nickName;
-        this.gender = gender;
-        this.phone = phone;
-        this.birth = birth;
-        this.height = height;
-        this.weight = weight;
-        this.workType = workType;
-        this.userType = userType;
+    public UserInfoRes(UserInfo user,UserReport userReport) {
+        this.user = user;
+        this.userReport = userReport;
     }
 }

@@ -10,5 +10,8 @@ public class UserInfoReq extends BaseEntity {
 
     private static final long serialVersionUID = 5895699582957353403L;
 
+
+    private String idCardNum;
+
     
 }

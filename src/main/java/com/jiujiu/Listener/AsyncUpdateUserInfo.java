@@ -20,7 +20,7 @@ public class AsyncUpdateUserInfo {
   @EventListener
   public void updateUserInfo(UserInfoUpdateListener userListener){
 
-    UserInfo userInfo  = new UserInfo(userListener.getT().getUserId(),userListener.getT().getUserNickname(),
+    UserInfo userInfo  = new UserInfo(userListener.getT().getUserId(),userListener.getT().getAge(),userListener.getT().getUserNickname(),
             userListener.getT().getUserHeadImage(),userListener.getT().getUserGender());
     userInfoMapper.updateUserInfoByUserIdOrPhone(userInfo);
   }

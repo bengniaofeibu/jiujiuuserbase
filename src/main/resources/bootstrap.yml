@@ -10,8 +10,9 @@ spring:
   cloud:
     config:
       label: master
-      profile: dev
-      uri: http://106.15.47.133:8191
+      profile: test
+#      uri: http://106.15.47.133:8191
+      uri: http://10.31.188.92:8081
       name: application
 
   rabbitmq:

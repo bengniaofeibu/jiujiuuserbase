@@ -24,7 +24,11 @@ public class HUserBaseInfo extends BaseModel{
 
     private Date birth;
 
+    private String userBirth;
+
     private String workType;
+
+    private String workTypeTag;
 
     private Integer gender;
 
@@ -49,12 +53,13 @@ public class HUserBaseInfo extends BaseModel{
        this.id = id;
     }
 
-    public HUserBaseInfo(String id,Integer weight, Integer height, Date birth, String workType, Integer gender) {
+    public HUserBaseInfo(String id,Integer age,Integer weight,Integer height, Date birth, String workTypeTag,Integer gender) {
         this(id);
+        this.age = age;
         this.weight = weight;
         this.height = height;
         this.birth = birth;
-        this.workType = workType;
+        this.workTypeTag = workTypeTag;
         this.gender = gender;
         this.status = 1;
     }

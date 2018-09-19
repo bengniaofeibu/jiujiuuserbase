@@ -71,6 +71,9 @@
       <if test="workType != null">
         work_type,
       </if>
+      <if test="workTypeTag != null">
+        work_type_tag,
+      </if>
       <if test="gender != null">
         gender,
       </if>
@@ -118,6 +121,9 @@
       <if test="workType != null">
         #{workType,jdbcType=VARCHAR},
       </if>
+      <if test="workTypeTag != null">
+        #{workTypeTag,jdbcType=INTEGER},
+      </if>
       <if test="gender != null">
         #{gender,jdbcType=INTEGER},
       </if>
@@ -144,7 +150,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jiujiu.model.HUserBaseInfo">
+  <update id="updateUserBaseInfoByUserId" parameterType="com.jiujiu.model.HUserBaseInfo">
     update h_user_base_info
     <set>
       <if test="customId != null">

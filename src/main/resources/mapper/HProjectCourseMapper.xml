@@ -40,7 +40,7 @@
    FROM h_project_course projectcourse
    INNER JOIN h_project_info projectInfo INNER JOIN h_custom custom INNER JOIN h_course_base_info coursebaseinfo
    ON projectcourse.course_base_id = coursebaseinfo.id AND  projectcourse.project_id = projectInfo.id  and projectInfo.custom_id = custom.id
-   WHERE coach_id = 1 = #{coachId,jdbcType=VARCHAR}
+   WHERE coach_id = #{coachId,jdbcType=VARCHAR}
   </select>
 
 

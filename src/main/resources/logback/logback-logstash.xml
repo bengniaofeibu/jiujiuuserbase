@@ -3,7 +3,7 @@
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>139.196.194.172:4560</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
-        <customFields>{"server_name":"jjusernutrition"}</customFields>
+        <customFields>{"server_name":"jjuserbase"}</customFields>
         </encoder>
         <!-- 当有多个多个logstash IP或端口可以轮询负载各端口 -->
         <!--<connectionStrategy>

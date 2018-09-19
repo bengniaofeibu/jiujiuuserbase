@@ -9,6 +9,8 @@ public enum ResultEnums implements BaseEnum {
 
     PERFECT_USER_BASE_INFO_OK(BaseEnum.code,"完善用户基本信息成功"),
 
+    UPDATE_USER_BASE_INFO_OK(BaseEnum.code,"更新用户基本信息成功"),
+
     SEND_VERIFICATION_CODE_OK(BaseEnum.code,"验证码发送成功"),
 
     USER_NOT_FOUND_INFO_FAIL(10000,"用户信息获取失败"),
@@ -21,7 +23,13 @@ public enum ResultEnums implements BaseEnum {
 
     SEND_VERIFICATION_CODE_FAIL(10004,"验证码发送失败"),
 
-    CLASS_NOT_FOUND_FAIL(10005,"暂无上课日程");
+    CLASS_NOT_FOUND_FAIL(10005,"暂无上课日程"),
+
+    ARTICLE_INFO_NOT_FOUND_FAIL(10006,"暂无文章推荐"),
+
+    USER_BIRTH_FAIL(10007,"生日不能大于现在时间"),
+
+    PERFECT_USER_BASE_NOT_INFO_FAIL(10008,"用户基本信息没有完善");
 
     private Integer code;
 

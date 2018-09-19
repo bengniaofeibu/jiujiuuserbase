@@ -12,5 +12,5 @@ public interface HUserBaseInfoMapper {
 
     HUserBaseInfo selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(HUserBaseInfo record);
+    int updateUserBaseInfoByUserId(HUserBaseInfo record);
 }

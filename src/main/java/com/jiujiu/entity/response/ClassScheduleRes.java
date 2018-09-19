@@ -34,6 +34,4 @@ public class ClassScheduleRes extends BaseEntity{
     @ApiModelProperty(value = "上课企业地址")
     private String classAddress;
 
-    @ApiModelProperty(value = "课程二维码")
-    private String classCode;
 }

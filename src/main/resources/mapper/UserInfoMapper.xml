@@ -59,6 +59,7 @@
             <result column="height" property="height" />
             <result column="weight" property="weight" />
             <result column="work_type" property="workType"/>
+            <result column="work_type_tag" property="workTypeTag"/>
             <result column="gender" property="gender"/>
             <result column="status" property="status"/>
         </collection>
@@ -80,8 +81,9 @@
 
   <select id="selectUserBaseInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
    SELECT
-   userinfo.phone,userinfo.nickname,userinfo.picurl,CASE WHEN userbaseinfo.status is NULL THEN 0 ELSE userbaseinfo.status END AS status ,
-   userbaseinfo.custom_id,userbaseinfo.age,userbaseinfo.birth,userbaseinfo.height,userbaseinfo.weight,userbaseinfo.work_type,userbaseinfo.gender
+   userinfo.id,account_status,credit_score,deposit,guester_state,id_cardnum,integral,m_borrow_bicycle,m_borrow_bicycle_date,nickname,phone,picurl,real_name,
+   CASE WHEN userbaseinfo.status is NULL THEN 0 ELSE userbaseinfo.status END AS status ,
+   userbaseinfo.custom_id,userbaseinfo.age,userbaseinfo.birth,userbaseinfo.height,userbaseinfo.weight,userbaseinfo.work_type_tag,userbaseinfo.gender
    FROM t_user_info userinfo LEFT JOIN h_user_base_info userbaseinfo
    ON userinfo.id = userbaseinfo.id
    WHERE userinfo.phone = #{phone,jdbcType=VARCHAR} OR userinfo.id = #{id,jdbcType=VARCHAR}
