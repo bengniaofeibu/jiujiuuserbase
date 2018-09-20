@@ -10,14 +10,14 @@ spring:
   cloud:
     config:
       label: master
-      profile: test
-#      uri: http://106.15.47.133:8191
-      uri: http://10.31.188.92:8081
+      profile: local
+      uri: http://106.15.47.133:8191
+#      uri: http://10.31.188.92:8081
       name: application
 
   rabbitmq:
-#     host: 47.102.20.188
-     host: 10.31.188.92
+     host: 47.102.20.188
+#     host: 10.31.188.92
      port: 5672
      username: admin
      password: admin

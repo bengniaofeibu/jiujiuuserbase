@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -72,6 +73,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
      * @param userRegisterLoginReq
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public AppletResult userRegisterLogin(UserRegisterLoginReq userRegisterLoginReq) {
 
@@ -199,24 +201,35 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
      * @param userBaseInfoReq
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public AppletResult perfectUserBaseInfo(UserBaseInfoReq userBaseInfoReq) {
 
+        Date userBirth = null;
 
-        Date userBirth = new Date(userBaseInfoReq.getBirth().toString().length() < 13 ? userBaseInfoReq.getBirth() * 1000L : userBaseInfoReq.getBirth());
+        Long age = null;
 
-        Date dateNow = new Date();
+        if (userBaseInfoReq.getBirth()!=null){
+            userBirth = new Date(userBaseInfoReq.getBirth() * 1000L);
 
-        //判断用户生日是否大于现在
-        if (DateUtil.isAfter(userBirth, dateNow)) ResultUtil.error(ResultEnums.USER_BIRTH_FAIL);
+            Date dateNow = new Date();
+
+            //判断用户生日是否大于现在
+            if (DateUtil.isAfter(userBirth, dateNow))return ResultUtil.error(ResultEnums.USER_BIRTH_FAIL);
 
 
-        //用户年龄
-        Long age = DateUtil.betweenDate(userBirth, dateNow, ChronoUnit.YEARS);
+            //用户年龄
+            age = DateUtil.betweenDate(userBirth, dateNow, ChronoUnit.YEARS);
+        }
+        HUserBaseInfo userBaseInfo =null;
+        if (age == null){
+            userBaseInfo = new HUserBaseInfo(userBaseInfoReq.getUserId(), null, userBaseInfoReq.getWeight(),
+                    userBaseInfoReq.getHeight(), userBirth,userBaseInfoReq.getWorkTypeTag(), userBaseInfoReq.getUserGender());
+        }else {
 
-
-        HUserBaseInfo userBaseInfo = new HUserBaseInfo(userBaseInfoReq.getUserId(), age.intValue(), userBaseInfoReq.getWeight(),
-                userBaseInfoReq.getHeight(), userBirth,userBaseInfoReq.getWorkTypeTag(), userBaseInfoReq.getUserGender());
+            userBaseInfo = new HUserBaseInfo(userBaseInfoReq.getUserId(), age.intValue(), userBaseInfoReq.getWeight(),
+                    userBaseInfoReq.getHeight(), userBirth,userBaseInfoReq.getWorkTypeTag(), userBaseInfoReq.getUserGender());
+        }
 
         if (Integer.valueOf(userBaseInfoReq.getOperateType()) == 0) {
 
