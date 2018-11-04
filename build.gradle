@@ -5,7 +5,7 @@ buildscript {
 
 	repositories {
 		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-		maven { url 'http://139.196.194.172:8181/nexus/content/repositories/99rep/' }
+		//maven { url 'http://139.196.194.172:8181/nexus/content/repositories/99rep/' }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -23,7 +23,7 @@ sourceCompatibility = 1.8
 
 repositories {
 	maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-	maven { url 'http://139.196.194.172:8181/nexus/content/repositories/99rep/' }
+	//maven { url 'http://139.196.194.172:8181/nexus/content/repositories/99rep/' }
 
 }
 
@@ -43,8 +43,8 @@ dependencies {
 	mybatisGenerator 'mysql:mysql-connector-java:5.1.40'
 	mybatisGenerator 'tk.mybatis:mapper:3.3.9'
 	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1')
-	compile('com.jiujiu.wisdom:core-util:Releases')
-	compile('com.jiujiu.wisdom:jiujiu-util:Releases')
+	//compile('com.jiujiu.wisdom:core-util:Releases')
+	//compile('com.jiujiu.wisdom:jiujiu-util:Releases')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
 	compile('com.github.pagehelper:pagehelper-spring-boot-starter:1.2.3')
